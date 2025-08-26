@@ -1,15 +1,17 @@
 
 import './App.css'
+import Layout from './components/Layout/Layout'
 function App() {
 
   return (
-    <>
- <div className="min-h-screen flex items-center justify-center bg-red-500 text-white">
-      <h1 className="text-5xl font-bold underline decoration-blue-500">
-      Sager Pilot Network!
-      </h1>
-    </div>
-    </>
+   
+ <Layout>
+      <div className="text-center text-gray-700">
+        <h2 className="text-2xl font-bold mb-4">Welcome to Drone Tracker</h2>
+        <p>Add your pages or components here.</p>
+      </div>
+    </Layout>
+  
   )
 }
 
