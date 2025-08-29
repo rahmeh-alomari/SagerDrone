@@ -1,35 +1,18 @@
-export interface FeatureProperties {
-    serial: string;
-    registration: string;
-    Name: string;
-    altitude: number;
-    pilot: string;
-    organization: string;
-    yaw: number;
-  }
-  
-  export interface Feature {
-    type: "Feature";
-    properties: FeatureProperties;
-    geometry: {
-      type: "Point";
-      coordinates: number[];
-    };
-  }
-  
-  export interface FeatureCollection {
-    type: "FeatureCollection";
-    features: Feature[];
-  }
-  
-  export interface SocketContextState {
-    features: Feature[];
-    error: string | null;
-    reconnect: () => void;
-  }
+import { createContext } from "react";
+import type { Feature } from "../types/features.model";
 
-  export interface SocketProviderState {
-    features: Feature[];
-    error: string | null;
-    reconnect: () => void;
-  }
+export interface SocketContextState {
+  features: Feature[];
+  error: string | null;
+  reconnect: () => void;
+  selectedDroneSerial: string | null;
+  setSelectedDroneSerial: (serial: string | null) => void;
+}
+
+export const SocketContext = createContext<SocketContextState>({
+  features: [],
+  error: null,
+  reconnect: () => {},
+  selectedDroneSerial: null,
+  setSelectedDroneSerial: () => {},
+});

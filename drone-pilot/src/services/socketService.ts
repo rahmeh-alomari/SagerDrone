@@ -14,12 +14,12 @@ class SocketService {
       this.socket = io(url, { transports: ["polling"] });
 
       this.socket.on("connect", () => {
-        console.log("Socket connected:", this.socket?.id);
+        console.log("Socket connected, id:", this.socket);
       });
 
       this.socket.on("connect_error", (err) => {
         console.error("Socket connect error:", err);
-        this.errorCallback?.(err);
+        this.errorCallback?.(err instanceof Error ? err : new Error(String(err)));
       });
 
       this.socket.on("disconnect", (reason) => {

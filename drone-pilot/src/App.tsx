@@ -1,18 +1,15 @@
+import "./App.css";
+import { SocketProvider } from "./context/SocketProvider";
+import AppRouter from "./router/AppRouter";
 
-import './App.css'
-import Layout from './components/Layout/Layout'
-import { SocketProvider } from './context/SocketProvider'
 function App() {
 
   return (
     <SocketProvider>
-      <Layout>
-        <div className="text-center text-gray-700">
-        </div>
-      </Layout>
-    </SocketProvider>
+         <AppRouter />
 
-  )
+    </SocketProvider>
+  );
 }
 
-export default App
+export default App;

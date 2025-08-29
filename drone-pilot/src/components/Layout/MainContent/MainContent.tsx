@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { SocketContext } from "../../../context/SocketContext";
-import type { MainContentProps } from "../../../types/mainContant.models";
 import MainContentHTML from "./MainContentHTML";
 import DroneMap from "../../DroneMap/DroneMap";
+import type { MainContentProps } from "../../../types/mainContant.models";
 
 const MainContent = ({ children }: MainContentProps) => {
   const { features, error } = useContext(SocketContext);
