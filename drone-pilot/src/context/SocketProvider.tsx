@@ -9,6 +9,7 @@ import { environment } from "../environments/environment";
 export const SocketProvider = ({ children }: { children: ReactNode }) => {
   const [features, setFeatures] = useState<Feature[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [selectedDroneSerial, setSelectedDroneSerial] = useState<string | null>(null);
 
   const connectSocket = useCallback(() => {
     socketService.connect(environment.socketUrl);
@@ -16,7 +17,13 @@ export const SocketProvider = ({ children }: { children: ReactNode }) => {
     socketService.subscribe<FeatureCollection>("message", (data) => {
       setFeatures(data.features);
       setError(null);
+    
+      console.log("Received drones:", data.features.length);
+      data.features.forEach((f) => {
+        console.log(`Drone: ${f.properties.Name}, Serial: ${f.properties.serial}, Registration: ${f.properties.registration}`);
+      });
     });
+    
 
     socketService.onError((err: Error) => {
       setError("Socket error: " + err?.message || "Unknown error");
@@ -42,6 +49,8 @@ export const SocketProvider = ({ children }: { children: ReactNode }) => {
     features,
     error,
     reconnect: connectSocket,
+    selectedDroneSerial,
+    setSelectedDroneSerial, 
   };
 
   return <SocketContext.Provider value={state}>{children}</SocketContext.Provider>;
