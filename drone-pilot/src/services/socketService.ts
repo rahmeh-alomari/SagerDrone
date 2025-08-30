@@ -17,7 +17,7 @@ export class SocketService {
 
   connect(url: string): void {
     if (this.socket && this.socket.connected) {
-      console.log("Socket already connected:", this.socket.id);
+      console.log("Socket ", this.socket.id);
       return;
     }
 
@@ -29,16 +29,16 @@ export class SocketService {
     });
 
     this.socket.on("connect", () => {
-      console.log("Socket connected, id:", this.socket?.id);
+      console.log("Socket ", this.socket?.id);
     });
 
     this.socket.on("connect_error", (err) => {
-      console.error("Socket connect error:", err);
+      console.log("Socket  error", err);
       this.errorCallback?.(err instanceof Error ? err : new Error(String(err)));
     });
 
     this.socket.on("disconnect", (reason) => {
-      console.warn("Socket disconnected:", reason);
+      console.log("Socket disconnected:", reason);
       this.disconnectCallback?.(reason);
 
       this.socket?.removeAllListeners();
@@ -67,7 +67,6 @@ export class SocketService {
   disconnect(): void {
     if (!this.socket) return;
     this.socket.disconnect();
-    this.socket.removeAllListeners();
     this.socket = null;
   }
 
