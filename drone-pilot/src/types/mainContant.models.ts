@@ -1,7 +1,12 @@
+import type { Feature } from "./features.model";
+
 export interface MainContentHTMLProps {
-    children: React.ReactNode;
+  features: Feature[];
+  error: string | null;
+  children?: React.ReactNode; 
   }
   export interface MainContentProps {
     children?: React.ReactNode;
   }
   
+ 

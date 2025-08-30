@@ -1,20 +1,22 @@
+import { SocketProvider } from "../../context/SocketProvider";
 import type { LayoutHTMLProps } from "../../types/layout.models";
 import Header from "./Header/Header";
-import MainContent from "./MainContent/MainContent";
 import Sidebar from "./Sidebar/Sidebar";
+import { Outlet } from "react-router-dom";
 
-const LayoutHTML = ({ collapsed, setCollapsed, children }: LayoutHTMLProps) => {
+const LayoutHTML = ({ collapsed, setCollapsed }: LayoutHTMLProps) => {
     return (
-        <div className="flex h-screen">
-            <Sidebar
-                collapsed={collapsed}
-                setCollapsed={setCollapsed}
-                menu={[]}
-            />      <div className="flex-1 flex flex-col">
-                <Header />
-                <MainContent>{children}</MainContent>
+        <SocketProvider>
+            <div className="flex h-screen">
+                <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} menu={[]} />
+                <div className="flex-1 flex flex-col">
+                    <Header />
+                    <div className="flex-1 p-4  h-[85%]">
+                        <Outlet />
+                    </div>
+                </div>
             </div>
-        </div>
+        </SocketProvider>
     );
 };
 

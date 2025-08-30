@@ -3,7 +3,7 @@ import type { HeaderHTMLProps } from "../../../types/header.models";
   
   const HeaderHTML = ({ user }: HeaderHTMLProps) => {
     return (
-      <div className="flex justify-between items-center p-4 bg-gray-800 text-white transition-width duration-300">
+      <div className="flex justify-between items-center p-4 bg-gray-800 text-white transition-all duration-300 w-full max-w-full overflow-hidden">
         <h1 className="text-xl font-bold">Drone Tracker</h1>
         <div className="flex items-center gap-2">
           <div className="flex flex-col text-right">
