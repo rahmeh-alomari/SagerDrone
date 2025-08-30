@@ -1,69 +1,45 @@
-# React + TypeScript + Vite
+# Drone Pilot
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A real-time drone tracking dashboard built with ReactJS, Mapbox, and WebSocket. The front-end receives live drone data from the backend and shows their paths, statuses, and details.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- Show all drones currently in the sky on the map.
+- Track each drone's path from the moment the page opens.
+- Color-coded drones: green if registration starts with **B**, red otherwise.
+- Hovering on a drone shows flight time and altitude.
+- Yaw orientation displayed as an arrow on the drone icon.
+- Clicking a drone on the map or in the list focuses/highlights it.
+- Red drone counter at the bottom right.
+- Responsive and fast, even with many drones.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Requirements
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- Node.js >= 20
+- npm
+- Backend WebSocket server (already provided)
+- Mapbox account/token
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Installation
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+git clone <your-repo-url>
+cd drone-pilot
+npm install
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+src/
+ ├─ components/   
+ ├─ context/     
+ ├─ services/     
+ ├─ types/      
+ ├─ App.tsx
+ └─ main.tsx
+
+ 
+VITE_MAPBOX_TOKEN=pk.eyJ1IjoicmFobWVoOTYiLCJhIjoiY21ldHFqN2F0MDF2bDJvczhlcDZqbjl2MiJ9.sBfa_Qb3RcuM_atotyjfMA

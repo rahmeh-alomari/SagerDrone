@@ -7,3 +7,16 @@ export interface DroneMapHTMLProps {
   export  interface DroneMapProps {
     features: Feature[];
   }
+  export interface Drone {
+    name: string;
+    altitude: number;
+    pilot: string;
+    org: string;
+    serial: string;
+    registration: string;
+    yaw: number;
+    canFly: boolean;
+  }
+  export interface DroneListHTMLProps {
+    onClickDrone?: (serial: string) => void;
+  }

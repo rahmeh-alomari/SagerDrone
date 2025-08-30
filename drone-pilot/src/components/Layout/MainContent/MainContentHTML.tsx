@@ -1,32 +1,19 @@
-import type { Feature } from "../../../types/features.model";
+import type { MainContentHTMLProps } from "../../../types/mainContant.models";
 import DroneListHTML from "../../DronList/DroneListHtml";
 
-interface MainContentHTMLProps {
-  features: Feature[];
-  error: string | null;
-  children?: React.ReactNode; 
-}
 
-const MainContentHTML = ({ features, error, children }: MainContentHTMLProps) => {
+
+const MainContentHTML = ({ children }: MainContentHTMLProps) => {
   return (
-    <div className="flex h-screen gap-4 p-4">
-      <div className="w-1/3 bg-gray-800 text-white  p-4 rounded-md overflow-auto">
-        <h1 className="text-xl font-semibold mb-4">Drone Tracker</h1>
+    <div className="flex gap-4 p-4 h-[100%]">
+      <div className="w-1/3 bg-gray-800 text-white p-4 rounded-md ">
 
-        {error && <p className="text-red-600 mb-4">{error}</p>}
 
-        <ul className="mb-4">
-          {features.map((f) => (
-            <li key={f.properties.serial}>
-              {f.properties.Name} - {f.properties.registration} - Alt: {f.properties.altitude}m
-            </li>
-          ))}
-        </ul>
-
+        
         <DroneListHTML />
       </div>
 
-      <div className="flex-1">{children}</div>
+      <div className="flex-1 h-full">{children}</div>
     </div>
   );
 };
