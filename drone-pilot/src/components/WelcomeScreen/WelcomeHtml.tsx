@@ -46,7 +46,7 @@ export default function WelcomeHtml({ enterSite }: Props) {
           Enter Site <FaRocket className="inline text-blue-400"/>
         </button>
       
-        <p className="mt-10 text-gray-500 text-sm flex items-center justify-center gap-2 animate-fade-in delay-600">
+        <p className="mt-10 text-white-500 text-sm flex items-center justify-center gap-2 animate-fade-in delay-600 ">
           <FaExclamationTriangle className="inline text-yellow-400"/> No drones were harmed… Some might have gotten dizzy  <FaDizzy className="inline text-yellow-400"/>
         </p>
       </div>
