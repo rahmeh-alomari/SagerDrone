@@ -16,57 +16,35 @@ export class SocketService {
   private subscriptions: Subscription[] = [];
 
   connect(url: string): void {
-    if (this.socket && this.socket.connected) {
-      console.log("Socket ", this.socket.id);
-      return;
-    }
-
+    if (this.socket && this.socket.connected) return;
     this.socket = io(url, {
-      transports: ["polling"], 
+      transports: ["polling"],
       reconnection: true,
       reconnectionAttempts: Infinity,
       reconnectionDelay: 3000,
     });
-
-    this.socket.on("connect", () => {
-      console.log("Socket ", this.socket?.id);
-    });
-
-    this.socket.on("connect_error", (err) => {
-      console.log("Socket  error", err);
-      this.errorCallback?.(err instanceof Error ? err : new Error(String(err)));
-    });
-
+    this.socket.on("connect", () => console.log("Socket connected:", this.socket?.id));
+    this.socket.on("connect_error", (err) => this.errorCallback?.(err instanceof Error ? err : new Error(String(err))));
     this.socket.on("disconnect", (reason) => {
-      console.log("Socket disconnected:", reason);
       this.disconnectCallback?.(reason);
-
       this.socket?.removeAllListeners();
       this.socket = null;
     });
-
-    this.subscriptions.forEach(({ event, callback }) => {
-      this.socket?.on(event, callback as EventCallback<any>);
-    });
+    this.subscriptions.forEach(({ event, callback }) => this.socket?.on(event, callback as EventCallback<any>));
   }
 
   subscribe<T>(event: string, callback: EventCallback<T>): void {
-    if (this.socket) {
-      this.socket.on(event, callback);
-    }
+    if (this.socket) this.socket.on(event, callback);
     this.subscriptions.push({ event, callback: callback as EventCallback<unknown> });
   }
 
   unsubscribe(event: string): void {
-    if (this.socket) {
-      this.socket.off(event);
-    }
-    this.subscriptions = this.subscriptions.filter((sub) => sub.event !== event);
+    if (this.socket) this.socket?.off(event);
+    this.subscriptions = this.subscriptions.filter(sub => sub.event !== event);
   }
 
   disconnect(): void {
-    if (!this.socket) return;
-    this.socket.disconnect();
+    this.socket?.disconnect();
     this.socket = null;
   }
 
