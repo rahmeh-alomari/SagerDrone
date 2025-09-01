@@ -1,3 +1,4 @@
+
 import mapboxgl from "mapbox-gl";
 
 export const showDronePopup = (map: mapboxgl.Map, e: mapboxgl.MapMouseEvent) => {

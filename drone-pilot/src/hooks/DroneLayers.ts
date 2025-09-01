@@ -4,6 +4,9 @@ export const addDroneLayers = (map: mapboxgl.Map) => {
   map.addSource("drones", {
     type: "geojson",
     data: { type: "FeatureCollection", features: [] },
+    cluster: true,
+    clusterMaxZoom: 14,
+    clusterRadius: 50,
   });
 
   map.addLayer({
@@ -13,38 +16,58 @@ export const addDroneLayers = (map: mapboxgl.Map) => {
     filter: ["==", ["get", "featureType"], "path"],
     paint: {
       "line-color": "#facc15",
-      "line-width": 3,
-      "line-opacity": 0.9,
+      "line-width": 2,
+      "line-opacity": 0.8,
     },
   });
 
   map.addLayer({
-    id: "drone-circles",
+    id: "drone-points",
     type: "circle",
     source: "drones",
-    filter: ["==", ["get", "featureType"], "drone"],
+    filter: ["!", ["has", "point_count"]],
     paint: {
-      "circle-radius": 16,
-      "circle-color": [
-        "case",
-        ["==", ["slice", ["get", "Name"], 0, 1], "B"],
-        "#22c55e", 
-        "#ef4444",
-      ],
-      "circle-stroke-width": 2,
-      "circle-stroke-color": "#ffffff",
+      "circle-radius": 12,
+      "circle-color": "#ef4444",
+      "circle-stroke-width": 1,
+      "circle-stroke-color": "#fff",
     },
   });
 
   map.addLayer({
-    id: "drone-inside",
+    id: "drone-icons",
     type: "symbol",
     source: "drones",
-    filter: ["==", ["get", "featureType"], "drone"],
+    filter: ["!", ["has", "point_count"]],
     layout: {
       "text-field": "✈️",
-      "text-size": 16,
+      "text-size": 14,
       "text-allow-overlap": true,
+      "text-ignore-placement": true,
+    },
+  });
+
+  map.addLayer({
+    id: "clusters",
+    type: "circle",
+    source: "drones",
+    filter: ["has", "point_count"],
+    paint: {
+      "circle-color": "#ff9900",
+      "circle-radius": ["step", ["get", "point_count"], 20, 100, 30, 500, 40],
+      "circle-opacity": 0.6,
+    },
+  });
+
+  map.addLayer({
+    id: "cluster-count",
+    type: "symbol",
+    source: "drones",
+    filter: ["has", "point_count"],
+    layout: {
+      "text-field": "{point_count_abbreviated}",
+      "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+      "text-size": 12,
     },
   });
 };
