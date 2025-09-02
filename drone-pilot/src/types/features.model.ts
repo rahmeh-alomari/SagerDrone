@@ -26,6 +26,8 @@ export interface FeatureCollection {
 
 export interface SocketProviderState {
   features: Feature[];
+  dronePaths: Feature[];
+  highlightedPath: Feature | null; 
   error: string | null;
   reconnect: () => void;
   selectedDroneSerial: string | null;
@@ -34,6 +36,8 @@ export interface SocketProviderState {
 
 export interface SocketContextState {
   features: Feature[];
+  dronePaths: Feature[];
+  highlightedPath: Feature | null;
   error: string | null;
   reconnect: () => void;
   selectedDroneSerial: string | null;
@@ -42,6 +46,8 @@ export interface SocketContextState {
 
 export const SocketContext = createContext<SocketContextState>({
   features: [],
+  dronePaths: [], 
+  highlightedPath: null, 
   error: null,
   reconnect: () => {},
   selectedDroneSerial: null,
