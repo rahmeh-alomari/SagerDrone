@@ -9,15 +9,56 @@ export const addDroneLayers = (map: mapboxgl.Map) => {
     clusterRadius: 50,
   });
 
+  map.addSource("drone-paths", {
+    type: "geojson",
+    data: { type: "FeatureCollection", features: [] },
+  });
+
+  map.addLayer({
+    id: "drone-paths-shadow",
+    type: "line",
+    source: "drone-paths",
+    paint: {
+      "line-color": "#dc2626",
+      "line-width": 8,
+      "line-opacity": 0.5, 
+    },
+  });
+
   map.addLayer({
     id: "drone-paths",
+    type: "line",
+    source: "drone-paths",
+    paint: {
+      "line-color": "#ef4444", 
+      "line-width": 6,
+      "line-opacity": 1, 
+      "line-dasharray": [2, 2],
+    },
+  });
+
+  map.addLayer({
+    id: "drone-paths-pattern",
+    type: "line",
+    source: "drone-paths",
+    paint: {
+      "line-color": "#fca5a5", 
+      "line-width": 3, 
+      "line-opacity": 0.9, 
+      "line-dasharray": [1, 3], 
+    },
+  });
+
+  map.addLayer({
+    id: "drone-paths-old",
     type: "line",
     source: "drones",
     filter: ["==", ["get", "featureType"], "path"],
     paint: {
-      "line-color": "#facc15",
-      "line-width": 2,
-      "line-opacity": 0.8,
+      "line-color": "#ef4444", 
+      "line-width": 6, 
+      "line-opacity": 1, 
+      "line-dasharray": [2, 2], 
     },
   });
 
@@ -27,9 +68,9 @@ export const addDroneLayers = (map: mapboxgl.Map) => {
     source: "drones",
     filter: ["!", ["has", "point_count"]],
     paint: {
-      "circle-radius": 12,
+      "circle-radius": 15, 
       "circle-color": "#ef4444",
-      "circle-stroke-width": 1,
+      "circle-stroke-width": 3, 
       "circle-stroke-color": "#fff",
     },
   });
@@ -41,7 +82,7 @@ export const addDroneLayers = (map: mapboxgl.Map) => {
     filter: ["!", ["has", "point_count"]],
     layout: {
       "text-field": "✈️",
-      "text-size": 14,
+      "text-size": 18, 
       "text-allow-overlap": true,
       "text-ignore-placement": true,
     },
